@@ -34,7 +34,7 @@ def create_app():
         redis_client.set(short_code, long_url)
 
         # Construct full short URL with Kubernetes Service URL
-        k8s_service_url = "http://192.168.49.2:30975"  # Replace with Minikube IP and port
+        k8s_service_url = "http://shortener.minikube.me:30975"
         short_url = f"{k8s_service_url}/{short_code}"
 
         return jsonify({
