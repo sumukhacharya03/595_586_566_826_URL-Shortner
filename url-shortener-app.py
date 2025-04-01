@@ -17,6 +17,10 @@ def create_app():
         short_code = hash_object.hexdigest()[:8]  # Use first 8 characters
         return short_code
 
+    @app.route('/')
+    def home():
+        return "URL Shortener API is running! Use /shorten to create short URLs."
+
     @app.route('/shorten', methods=['POST'])
     def shorten_url():
         long_url = request.json.get('url')
@@ -29,8 +33,9 @@ def create_app():
         # Store in Redis
         redis_client.set(short_code, long_url)
 
-        # Construct full short URL
-        short_url = f"http://localhost:5000/{short_code}"
+        # Construct full short URL with Kubernetes Service URL
+        k8s_service_url = "http://192.168.49.2:30975"  # Replace with Minikube IP and port
+        short_url = f"{k8s_service_url}/{short_code}"
 
         return jsonify({
             "original_url": long_url,
