@@ -14,7 +14,8 @@ spec:
     spec:
       containers:
         - name: url-shortener
-          image: url-shortener:latest  # Update this to the correct image tag if you pushed to a registry
+          image: url-short
+          imagePullPolicy: Never
           env:
             - name: REDIS_HOST
               valueFrom:
@@ -26,8 +27,3 @@ spec:
                 configMapKeyRef:
                   name: url-shortener-config
                   key: REDIS_PORT
-            - name: REDIS_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: redis-secret
-                  key: PESU

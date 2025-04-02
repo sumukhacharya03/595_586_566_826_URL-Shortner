@@ -9,4 +9,4 @@ spec:
     - protocol: TCP
       port: 5000
       targetPort: 5000
-  type: LoadBalancer  # This allows external access (if using Minikube)
+  type: LoadBalancer
